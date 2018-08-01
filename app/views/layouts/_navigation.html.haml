@@ -5,11 +5,11 @@
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
       %li.nav-item{class: @avtive_nav == "report" ? "active" : ""}
-        %a.nav-link{:href => "/reports"}
+        %a.nav-link{:href => "/#"}
           Report'em!
           %span.sr-only (current)
       %li.nav-item{class: @avtive_nav == "history" ? "active" : ""}
-        %a.nav-link{:href => "/history"} Lookie here
+        %a.nav-link{:href => "/#"} Lookie here
     %span.navbar-text
       - if user_signed_in?
         %ul.navbar-nav.mr-auto
