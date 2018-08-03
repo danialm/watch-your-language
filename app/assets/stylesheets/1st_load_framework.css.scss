@@ -158,3 +158,24 @@ section {
     right: 60px;
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .to-day-language {
+    border-radius: 0px;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    padding-top: 5px;
+    opacity: .8;
+
+    .stay-out,
+    .out-on-hover {
+      position: static;
+      @include rotate(0deg);
+      display: block;
+      text-align: center;
+    }
+  }
+}

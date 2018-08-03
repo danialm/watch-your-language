@@ -17,6 +17,7 @@ class FoulsController < ApplicationController
     Foul.create! description: params[:foul][:description],
                  owner: @owner,
                  reporter: current_user
+    flash[:notice] = "Good job!"
     redirect_to new_foul_path
   end
 
