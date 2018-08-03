@@ -1,0 +1,28 @@
+- content_for :active_title, "history"
+%br
+%ul.list-group
+  - @fouls.each do |foul|
+    %li.list-group-item
+      %div
+        %span.text-secondary Who did?
+        %span.text-info
+          - if current_user.id == foul.owner.id
+            You did!
+          - else
+            = foul.owner.name || foul.owner.email
+      %div
+        %span.text-secondary When did?
+        = foul.created_at.strftime("%B %d, %Y %H:%M")
+      - unless foul.description.blank?
+        %div
+          .text-secondary What did?
+          = foul.description
+      - if foul.accepted
+        Agreed upon on:
+        = foul.accepted_at.strftime("%B %d, %Y %H:%M")
+      - elsif current_user.id == foul.owner.id
+        = button_to "Agree",
+          { action: :update, id: foul.id, foul: { accepted: true } },
+          method: :patch, class: "btn btn-primary"
+
+

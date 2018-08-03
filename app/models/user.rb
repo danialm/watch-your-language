@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :owned_fouls, class_name: 'Foul', foreign_key: 'owner_id'
+  has_many :reported_fouls, class_name: 'Foul', foreign_key: 'reporter_id'
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
 

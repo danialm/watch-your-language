@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  reporter: one
+  owner: one
+  accepted: false
+
+two:
+  description: MyText
+  reporter: two
+  owner: two
+  accepted: false

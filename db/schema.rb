@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180731162854) do
+ActiveRecord::Schema.define(version: 20180803021705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fouls", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "reporter_id"
+    t.integer  "owner_id"
+    t.boolean  "accepted"
+    t.datetime "accepted_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["owner_id"], name: "index_fouls_on_owner_id", using: :btree
+    t.index ["reporter_id"], name: "index_fouls_on_reporter_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

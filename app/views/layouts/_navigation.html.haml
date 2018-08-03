@@ -4,12 +4,10 @@
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
-      %li.nav-item{class: @avtive_nav == "report" ? "active" : ""}
-        %a.nav-link{:href => "/#"}
-          Report'em!
-          %span.sr-only (current)
-      %li.nav-item{class: @avtive_nav == "history" ? "active" : ""}
-        %a.nav-link{:href => "/#"} Lookie here
+      %li.nav-item{class: yield(:active_title) == "report" ? "active" : ""}
+        =link_to("Report'em!", new_foul_path, class: "nav-link")
+      %li.nav-item{class: yield(:active_title) == "history" ? "active" : ""}
+        =link_to("Lookie here", fouls_path, class: "nav-link")
     %span.navbar-text
       - if user_signed_in?
         %ul.navbar-nav.mr-auto
