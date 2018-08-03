@@ -13,10 +13,20 @@
         %ul.navbar-nav.mr-auto
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              = "Yo, " + (current_user.name || current_user.email) + "!"
+              %span{ class: @points > 0 ? "text-success" : @points < 0 ? "text-danger" : "" }
+                = "Yo, " + (user_name(current_user)) + "! "
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-              =link_to("Check out your profile", edit_user_registration_path, {class: "dropdown-item"})
+              .dropdown-item
+                - if @points > 0
+                  Yahoo! You are ahead!
+                - elsif @points < 0
+                  How dare you be behind!
+                - else
+                  Well, fine
+                %spna{ class: @points > 0 ? "text-success" : @points < 0 ? "text-danger" : "" }
+                  = @points
               .dropdown-divider
+              =link_to("Check out your profile", edit_user_registration_path, {class: "dropdown-item"})
               =link_to("Sign the hell out", destroy_user_session_path, method: :delete, class: "dropdown-item")
       - else
         You betta

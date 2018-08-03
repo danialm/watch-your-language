@@ -22,7 +22,6 @@ class FoulsController < ApplicationController
 
   def update
     @foul.accepted = params[:foul][:accepted]
-    @foul.accepted_at = DateTime.now if params[:foul][:accepted]
     @foul.save!
     redirect_to fouls_path
   end

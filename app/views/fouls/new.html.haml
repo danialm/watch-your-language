@@ -3,8 +3,7 @@
   = form_for @foul do |f|
     %br
     .form-group
-      = f.select :owner_id,
-        @users.collect { |p| [ p.name || p.email, p.id ] }, {},
+      = f.select :owner_id, @users.collect { |p| [p.email, p.id] }, {},
         class: 'form-control'
     .form-group
       = f.text_area :description, class: 'form-control'
