@@ -35,6 +35,5 @@ class FoulsController < ApplicationController
 
   def set_owner
     @owner = User.find params[:foul][:owner_id]
-    flush
   end
 end
