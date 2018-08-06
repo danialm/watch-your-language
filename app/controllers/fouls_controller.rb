@@ -1,9 +1,9 @@
 class FoulsController < ApplicationController
   before_action :set_owner, only: [:create]
   before_action :set_foul, only: [:update]
+  before_action :set_fouls, only: [:index, :update, :update_multiple]
 
   def index
-    @fouls = Foul.all
   end
 
   def new
@@ -24,13 +24,17 @@ class FoulsController < ApplicationController
   def update
     @foul.accepted = params[:foul][:accepted]
     @foul.save!
-    redirect_to fouls_path
+    render :index
   end
 
   private
 
+  def set_fouls
+    @fouls = Foul.all_active
+  end
+
   def set_foul
-    @foul = Foul.find  params[:id]
+    @foul = Foul.find params[:id]
   end
 
   def set_owner
