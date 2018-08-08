@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180803172951) do
+ActiveRecord::Schema.define(version: 20180806222425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,27 @@ ActiveRecord::Schema.define(version: 20180803172951) do
     t.datetime "accepted_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "archived"
-    t.datetime "archived_at"
+    t.integer  "game_id"
+    t.index ["game_id"], name: "index_fouls_on_game_id", using: :btree
     t.index ["owner_id"], name: "index_fouls_on_owner_id", using: :btree
     t.index ["reporter_id"], name: "index_fouls_on_reporter_id", using: :btree
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.boolean  "archived"
+    t.datetime "archived_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "settles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.datetime "settled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_settles_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_settles_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

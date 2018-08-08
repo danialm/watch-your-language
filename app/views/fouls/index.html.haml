@@ -2,14 +2,14 @@
 %br
 %ul.list-group
   - @fouls.each do |foul|
-    - @you_own_it = current_user.id == foul.owner.id
+    - you_own_it = current_user.id == foul.owner.id
     %li.list-group-item
-      %span.badge.float-right{ class: foul.accepted ? "badge-success" : (@you_own_it ? "badge-danger" : "badge-warning") }
-        = foul.accepted ? "accepted" : (@you_own_it ? "new" : "pendding")
+      %span.badge.float-right{ class: foul.accepted ? "badge-success" : (you_own_it ? "badge-danger" : "badge-warning") }
+        = foul.accepted ? "accepted" : (you_own_it ? "new" : "pendding")
       %div
         %span.text-secondary Who did?
         %span.text-info
-          - if @you_own_it
+          - if you_own_it
             You did!
           - else
             = user_name(foul.owner)
@@ -24,9 +24,16 @@
         .text-secondary
           Holdin' the bag on:
           = show_time(foul.accepted_at)
-      - elsif @you_own_it
-        = button_to "Agree",
+      - elsif you_own_it
+        %br
+        = button_to "Okay... You got it",
           { action: :update, id: foul.id, foul: { accepted: true } },
           method: :patch, class: "btn btn-primary"
+      - else
+        %br
+        = button_to "I eat my words",
+          { action: :destroy, id: foul.id, foul: { accepted: true } },
+          method: :delete, class: "btn btn-danger",
+          data: { confirm: "Oh, do you?" }
 
 

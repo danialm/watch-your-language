@@ -1,0 +1,37 @@
+- content_for :active_title, "games"
+%br
+%ul.list-group
+  - @games.each do |game|
+    %li.list-group-item
+      %span.badge.float-right{ class: game.archived ? "badge-secondary" : "badge-success" }
+        = game.archived ? "archived" : "active"
+      %div
+        %span.text-secondary
+          Players:
+        %span You
+        %span.badge.badge-light
+          = game.fouls_for_user(current_user).count
+        - unless game.archived
+          - if game.settle_for_user(current_user).settled?
+            %span.badge.badge-secondary settled
+
+        - @opponents.each do |opponent|
+          %span
+            = user_name(opponent)
+          %span.badge.badge-light
+            = game.fouls_for_user(opponent).count
+          - unless game.archived
+            - if game.settle_for_user(opponent).settled?
+              %span.badge.badge-secondary settled
+
+      - if game.archived
+        %div
+          %span.text-secondary Wrapped up at:
+          = show_time(game.archived_at)
+      - elsif !game.settle_for_user(current_user).settled?
+        %br
+        = button_to "Settle",
+          game_settle_path(game, game.settle_for_user(current_user).id),
+          method: :put, class: "btn btn-primary"
+
+

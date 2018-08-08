@@ -4,10 +4,13 @@
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
-      %li.nav-item{class: yield(:active_title) == "report" ? "active" : ""}
-        =link_to("Report'em!", new_foul_path, class: "nav-link")
-      %li.nav-item{class: yield(:active_title) == "history" ? "active" : ""}
-        =link_to("Lookie here", fouls_path, class: "nav-link")
+      %li.nav-item{class: yield(:active_title) == "games" ? "active" : ""}
+        =link_to("Your games", games_path, class: "nav-link")
+      - if @current_game
+        %li.nav-item{class: yield(:active_title) == "report" ? "active" : ""}
+          =link_to("Report'em!", new_game_foul_path(@current_game), class: "nav-link")
+        %li.nav-item{class: yield(:active_title) == "history" ? "active" : ""}
+          =link_to("Lookie here", game_fouls_path(@current_game), class: "nav-link")
     %span.navbar-text
       - if user_signed_in?
         %ul.navbar-nav.mr-auto
@@ -16,18 +19,19 @@
               %span{ class: @points > 0 ? "text-success" : @points < 0 ? "text-danger" : "" }
                 = "Yo, " + (user_name(current_user)) + "! "
             .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-              .dropdown-item
-                - if @points > 0
-                  Yahoo! You are ahead!
-                - elsif @points < 0
-                  How dare you be behind!
-                - else
-                  Well, fine
-                %spna{ class: @points > 0 ? "text-success" : @points < 0 ? "text-danger" : "" }
-                  = @points
-              .dropdown-divider
+              - unless @points == 0
+                .dropdown-item
+                  - if @points > 0
+                    Yahoo! You are ahead!
+                  - elsif @points < 0
+                    How dare you be behind!
+                  = sprintf("%+d", @points)
+                .dropdown-divider
               =link_to("Check out your profile", edit_user_registration_path, {class: "dropdown-item"})
               =link_to("Sign the hell out", destroy_user_session_path, method: :delete, class: "dropdown-item")
       - else
         You betta
         =link_to("sign in", new_user_session_path)
+
+
+-#

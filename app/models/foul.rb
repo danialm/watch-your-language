@@ -1,29 +1,23 @@
 class Foul < ApplicationRecord
+  belongs_to :game
   belongs_to :reporter, class_name: "User"
   belongs_to :owner, class_name: "User"
 
-  default_scope { order(created_at: :desc) }
-
   before_save :set_timestamps
+  before_destroy :validate_destruction
 
-  class << self
-    def active_fouls_for_others(user)
-      active_fouls.where.not(owner: user)
-    end
-
-    def active_fouls_for_user(user)
-      active_fouls.where(owner: user)
-    end
-
-    def active_fouls
-      where(archived: [false, nil])
-    end
-  end
+  default_scope { order(created_at: :desc) }
+  scope :active, -> { where(accepted: true) }
 
   private
 
   def set_timestamps
-    self.archived_at = DateTime.now if self.archived && !self.archived_at
     self.accepted_at = DateTime.now if self.accepted && !self.accepted_at
+  end
+
+  def validate_destruction
+    if self.errors.add(:base, "This has already been accepted.")
+      throw :abort
+    end
   end
 end
