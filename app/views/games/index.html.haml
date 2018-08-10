@@ -15,7 +15,7 @@
           - if game.settle_for_user(current_user).settled?
             %span.badge.badge-secondary settled
 
-        - @opponents.each do |opponent|
+        - current_user.opponents_for_game(game).each do |opponent|
           %span
             = user_name(opponent)
           %span.badge.badge-light

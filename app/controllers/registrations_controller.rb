@@ -1,5 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  before_action :set_points
+
   private
 
   def sign_up_params

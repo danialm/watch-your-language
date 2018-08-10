@@ -1,7 +1,7 @@
 - content_for :active_title, "new_game"
 .authform
   = form_for(@new_game) do |f|
-    %br
+    %h4 Start a new game
     Start a game with:
     .form-group
       = f.select :user_ids, @opponents.collect { |p| [p.email, p.id] }, {},

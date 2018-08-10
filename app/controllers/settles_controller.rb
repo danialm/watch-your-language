@@ -1,6 +1,5 @@
 class SettlesController < ApplicationController
   before_action :set_current_game
-  before_action :set_points
   before_action :set_settle, only: [:update]
 
   def update

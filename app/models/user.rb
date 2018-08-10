@@ -11,6 +11,12 @@ class User < ApplicationRecord
     self.role ||= :user
   end
 
+  def opponents_for_game(game)
+    return [] unless self.games.find game
+
+    game.users.where.not id: self.id
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

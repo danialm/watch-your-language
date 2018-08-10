@@ -16,7 +16,8 @@ class Foul < ApplicationRecord
   end
 
   def validate_destruction
-    if self.errors.add(:base, "This has already been accepted.")
+    if self.accepted
+      self.errors.add(:base, "This has already been accepted.")
       throw :abort
     end
   end

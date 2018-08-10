@@ -1,7 +1,7 @@
 - content_for :active_title, "report"
 .authform
   = form_for([@current_game, @foul]) do |f|
-    %br
+    %h4 Report'em
     .form-group
       = f.select :owner_id, @users.collect { |p| [p.email, p.id] }, {},
         class: 'form-control'

@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_games, only: [:index]
   before_action :set_new_game, only: [:new]
-  before_action :set_opponents, only: [:new, :index]
+  before_action :set_opponents, only: [:new]
   before_action :set_opponent, only: [:create]
   before_action :set_current_game, except: [:new, :create]
   before_action :set_points
