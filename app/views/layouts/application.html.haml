@@ -19,11 +19,3 @@
       = render 'layouts/navigation'
       = render 'layouts/messages'
       = yield
-      %br
-      %br
-
-    .to-day-language.bg-info.text-white
-      .stay-out{ class: @today.odd? ? "fa" : "en" }
-        = @today.odd? ? "فارسی گویش کن امروز" : "Use your English today"
-      .out-on-hover
-        = "Today is #{@today.ordinalize}"
